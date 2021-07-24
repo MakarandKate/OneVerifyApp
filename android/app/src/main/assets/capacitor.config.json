@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "OneVerifyApp",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
