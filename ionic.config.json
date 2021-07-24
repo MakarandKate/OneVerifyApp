@@ -1,0 +1,7 @@
+{
+  "name": "OneVerifyApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
