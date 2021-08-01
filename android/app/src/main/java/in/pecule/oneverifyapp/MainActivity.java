@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package in.pecule.oneverifyapp;
 
 import com.getcapacitor.BridgeActivity;
 

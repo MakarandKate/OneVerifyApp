@@ -6,7 +6,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,12 +20,17 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
+    SocketIoModule.forRoot(config),
+    IonicStorageModule.forRoot({
+      name: '__db_oneverify',
+     driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+    })
   ],
   providers: [{ 
     provide: RouteReuseStrategy, 
     useClass: IonicRouteStrategy 
   },
-  QRScanner],
+ ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
