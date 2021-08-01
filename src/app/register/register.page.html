@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registration Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating"> First Name</ion-label>
+      <ion-input formControlName="firstName" type="text"></ion-input>
+    </ion-item>
+  
+    <!-- Error messages -->
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.firstName.errors?.required">
+      First Name is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.firstName.errors?.minlength">
+      First Name should be min 15 chars long.
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating"> Last Name</ion-label>
+      <ion-input formControlName="lastName" type="text"></ion-input>
+    </ion-item>
+  
+    <!-- Error messages -->
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.lastName.errors?.required">
+      Last Name is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.lastName.errors?.minlength">
+      Last Name should be min 15 chars long.
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+      Email is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+      Please provide valid email id.
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">DOB</ion-label>
+      <ion-datetime (ionChange)="getDate($event)" formControlName="dob" [value]="defaultDate"></ion-datetime>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Mobile</ion-label>
+      <ion-input maxlength="10" formControlName="mobile" type="text" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobile.errors?.required">
+      Mobile number is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
+      Only numerical values allowed.
+    </span>
+
+    <ion-item lines="full">
+      <ion-radio-group lines="full" formControlName="gender">
+        <ion-list-header>
+          <ion-label>Gender</ion-label>
+        </ion-list-header>
+  
+        <ion-item>
+          <ion-label>Male</ion-label>
+          <ion-radio slot="start" value="male" checked></ion-radio>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Female</ion-label>
+          <ion-radio slot="start" value="female"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.gender.errors?.required">
+      Gender is required.
+    </span>
+    
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+ 
+  
+</ion-content>
