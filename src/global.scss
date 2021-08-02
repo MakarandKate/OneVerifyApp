@@ -24,3 +24,16 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.slider-container {
+    ion-slides {
+        .swiper-pagination-bullet {
+            opacity: 1;
+            width: 14px;
+            height: 14px;
+        }
+    }
+    .swiper-container-horizontal>.swiper-pagination-bullets {
+        bottom: 100px !important;
+    }
+  }

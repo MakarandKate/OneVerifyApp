@@ -1,0 +1,13 @@
+<ion-content>
+  <div class="slider-container">
+    <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager="true">
+      <ion-slide *ngFor="let slide of slidesData">
+        <img src="assets/images/{{slide.image}}.png" class="slide-image" />
+        <h2 class="slide-title">
+          {{ slide.title }}
+        </h2>
+        <p> {{ slide.description }}</p>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

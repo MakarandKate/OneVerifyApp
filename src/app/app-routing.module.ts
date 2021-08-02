@@ -8,13 +8,18 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'intro-slides',
     pathMatch: 'full'
   },
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
+  {
+    path: 'intro-slides',
+    loadChildren: () => import('./intro-slides/intro-slides.module').then( m => m.IntroSlidesPageModule)
+  },
+  
 ];
 
 @NgModule({
