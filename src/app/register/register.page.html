@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
+  <form *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
     <ion-item lines="full">
       <ion-label position="floating"> First Name</ion-label>
       <ion-input formControlName="firstName" type="text"></ion-input>

@@ -1,7 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, Platform, ToastController } from '@ionic/angular';
 import jsQR from 'jsqr';
 import { Socket } from 'ngx-socket-io';
+import { Storage } from '@ionic/storage';
+
 
 
 
@@ -26,12 +29,18 @@ export class HomePage {
   message = '';
   messages = [];
   currentUser = '';
+  userData : any;
+  url : any;
+  urlTemp = "https://oneverify.page.link/?link=https://esigning.in/_ovi/K53tIcg1Wf65ftfCAAAb&apn=co.in.oneverify";
+  to: any;
   
   constructor(
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private plt: Platform,
     private socket: Socket,
+    private router : Router,
+    private storage : Storage,
     
   ) {
 
@@ -43,7 +52,9 @@ export class HomePage {
     }
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+   
+    await this.storage.create();
     this.socket.connect();
  
     let name = `user-${new Date().getTime()}`;
@@ -65,10 +76,11 @@ export class HomePage {
     });
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     this.canvasElement = this.canvas.nativeElement;
     this.canvasContext = this.canvasElement.getContext('2d');
     this.videoElement = this.video.nativeElement;
+    this.userData = await this.storage.get("user");
   }
 
   async showQrToast() {
@@ -79,12 +91,29 @@ export class HomePage {
         {
           text: 'Open',
           handler: () => {
-            window.open(this.scanResult, '_system', 'location=yes');
+             this.url = this.scanResult.replace("https://oneverify.page.link/?link=", '').replace("&apn=in.pecule.oneverify", '');
+            
           }
         }
       ]
     });
     toast.present();
+
+    this.url = this.scanResult.replace("https://oneverify.page.link/?link=", '')
+      .replace("&apn=in.pecule.oneverify", '');
+      fetch(this.url)
+      .then(async response => {
+         let responseText = await response.json();
+         this.to = responseText.sid;
+         this.authorize();
+      }).then(response => {
+          console.log(response);
+      })
+      .catch(err => {
+          // handle errors
+      });
+
+    
   }
 
   reset() {
@@ -182,9 +211,15 @@ export class HomePage {
     img.src = URL.createObjectURL(file);
   }
 
-  sendMessage() {
-    this.socket.emit('send-message', { text: this.message });
-    this.message = '';
+  authorize() {
+    if(this.userData != null){
+      alert(JSON.stringify(this.userData))
+      this.socket.emit('_ovi_login', { 
+        to : this.to, 
+        kyc : JSON.stringify(this.userData)
+      });
+    }
+    
   }
 
   ionViewWillLeave() {
@@ -198,6 +233,10 @@ export class HomePage {
       duration: 2000
     });
     toast.present();
+  }
+
+  goToRegister(){
+    this.router.navigateByUrl("register");
   }
   
   

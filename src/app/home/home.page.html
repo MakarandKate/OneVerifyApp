@@ -23,6 +23,11 @@
     <ion-icon slot="start" name="refresh"></ion-icon>
     Reset
   </ion-button>
+
+  <ion-button expand="full" (click)="goToRegister()">
+    <ion-icon slot="start" name="register"></ion-icon>
+    Register
+  </ion-button>
  
   <!-- Shows our camera stream -->
   <video #video [hidden]="!scanActive" width="100%"></video>
@@ -45,7 +50,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-text color="medium" text-center>
       <p>You joined the chat as {{ currentUser }}</p>
     </ion-text>
@@ -65,7 +70,7 @@
  
     </ion-row>
   </ion-grid>
-
+ -->
 
  
 </ion-content>
@@ -73,13 +78,11 @@
 <ion-footer>
   <ion-toolbar color="light">
     <ion-row align-items-center>
-      <ion-col size="10">
-        <ion-textarea auto-grow class="message-input" rows="1" [(ngModel)]="message"></ion-textarea>
-      </ion-col>
-      <ion-col size="2">
-        <ion-button expand="block" fill="clear" color="primary" [disabled]="message === ''" class="msg-btn"
-          (click)="sendMessage()">
-          <ion-icon name="ios-send" slot="icon-only"></ion-icon>
+     
+      <ion-col size="12">
+        <ion-button expand="block"  color="primary"  class="msg-btn"
+        (click)="authorize()">
+          Authorize
         </ion-button>
       </ion-col>
     </ion-row>

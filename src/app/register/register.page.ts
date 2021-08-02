@@ -19,8 +19,7 @@ export class RegisterPage implements OnInit {
     private storage: Storage
   ) { }
 
-  async ngOnInit() {
-    await this.storage.create();
+  ngOnInit() {
     this.registerForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
@@ -29,20 +28,15 @@ export class RegisterPage implements OnInit {
       mobile: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       gender: ['', Validators.required],
     })
+  }
+
+  ngAfterViewInit(){
     this.getData();
-    if(this.userData != null){
-      this.registerForm.get("firstName").setValue(this.userData.firstName);
-      this.registerForm.get("lastName").setValue(this.userData.lastName);
-      this.registerForm.get("email").setValue(this.userData.email);
-      this.registerForm.get("dob").setValue(this.userData.dob);
-      this.registerForm.get("mobile").setValue(this.userData.mobile);
-      this.registerForm.get("gender").setValue(this.userData.gender);
-    }
   }
 
   getDate(e) {
     let date = new Date(e.target.value).toISOString().substring(0, 10);
-    this.registerForm.get('dob').setValue(date, {
+    this.registerForm.controls['dob'].setValue(date, {
        onlyself: true
     })
  }
@@ -68,6 +62,15 @@ export class RegisterPage implements OnInit {
 
  async getData(){
    this.userData=await this.storage.get("user");
+   console.log("user", this.userData)
+   if(this.userData != null){
+    this.registerForm.get('firstName').setValue(this.userData.firstName);
+    this.registerForm.get('lastName').setValue(this.userData.lastName);
+    this.registerForm.get('email').setValue(this.userData.email);
+    this.registerForm.get('dob').setValue(this.userData.dob);
+    this.registerForm.get('mobile').setValue(this.userData.mobile);
+    this.registerForm.get('gender').setValue(this.userData.gender);
+  }
  }
 
 }
