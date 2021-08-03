@@ -91,7 +91,7 @@ export class HomePage {
         {
           text: 'Open',
           handler: () => {
-             this.url = this.scanResult.replace("https://oneverify.page.link/?link=", '').replace("&apn=in.pecule.oneverify", '');
+             this.url = this.scanResult.replace("https://oneverify.page.link/?link=", '').replace("&apn=in.pecule.oneverifyapp", '');
             
           }
         }
@@ -100,7 +100,7 @@ export class HomePage {
     toast.present();
 
     this.url = this.scanResult.replace("https://oneverify.page.link/?link=", '')
-      .replace("&apn=in.pecule.oneverify", '');
+      .replace("&apn=in.pecule.oneverifyapp", '');
       fetch(this.url)
       .then(async response => {
          let responseText = await response.json();

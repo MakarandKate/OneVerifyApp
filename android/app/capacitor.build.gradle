@@ -12,7 +12,8 @@ dependencies {
     implementation project(':capacitor-app')
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
-
+    implementation "com.google.firebase:firebase-analytics:19.0.+"
+    implementation "com.google.firebase:firebase-dynamic-links:19.1.+"
 }
 apply from: "../../node_modules/cordova-plugin-websocket-server/src/android/websocket-server.gradle"
 

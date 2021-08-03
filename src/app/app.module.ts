@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const config: SocketIoConfig = { url: 'https://esigning.in', options: {} };
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-
+import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 
 
 @NgModule({
@@ -21,6 +21,7 @@ import { Drivers } from '@ionic/storage';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
+    FirebaseDynamicLinks,
     SocketIoModule.forRoot(config),
     IonicStorageModule.forRoot({
       name: '__db_oneverify',
